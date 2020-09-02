@@ -31,7 +31,9 @@ export default class JSONData extends Plugin {
 			});
 		};
 
-		editor.data.stringify = modelElementOrFragment => {
+		const _stringify = editor.data.stringify;
+
+		editor.data.stringify = function(modelElementOrFragment) {
 			let data;
 
 			if (modelElementOrFragment.is("rootElement")) {
@@ -45,7 +47,10 @@ export default class JSONData extends Plugin {
 				data = modelElementOrFragment.toJSON();
 			}
 
-			return JSON.stringify(data);
+			return {
+				json: JSON.stringify(data),
+				html: _stringify.call(this, modelElementOrFragment)
+			};
 		};
 	}
 }

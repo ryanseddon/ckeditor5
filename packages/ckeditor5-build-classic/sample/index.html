@@ -23,6 +23,10 @@
 	ClassicEditor.create( document.querySelector( '#editor' ) )
 		.then( editor => {
 			window.editor = editor;
+
+			editor.model.document.on( 'change:data', (a) => {
+				console.log( editor.getData());
+			} );
 		} )
 		.catch( error => {
 			console.error( 'There was a problem initializing the editor.', error );
